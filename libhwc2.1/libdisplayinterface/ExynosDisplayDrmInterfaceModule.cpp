@@ -119,8 +119,10 @@ int32_t ExynosDisplayDrmInterfaceModule::setCgcLutDmaProperty(
     if (!prop.id())
         return NO_ERROR;
 
-    ExynosPrimaryDisplayModule* display = (ExynosPrimaryDisplayModule*)mExynosDisplay;
-    const GsInterfaceType::IDqe &dqe = display->getDqe();
+    ExynosDeviceModule* device = static_cast<ExynosDeviceModule*>(mExynosDisplay->mDevice);
+	gs101::ColorManager* colorManager = device->getDisplayColorManager(mExynosDisplay);
+	if (!colorManager) return NO_ERROR;
+    const GsInterfaceType::IDqe &dqe = colorManager->getDqe();
     const GsInterfaceType::IDqe::CgcData &cgcData = dqe.Cgc();
 
     /* dirty bit is valid only if enable is true */
@@ -164,8 +166,6 @@ int32_t ExynosDisplayDrmInterfaceModule::setCgcLutDmaProperty(
 int32_t ExynosDisplayDrmInterfaceModule::setDisplayColorSetting(
         ExynosDisplayDrmInterface::DrmModeAtomicReq &drmReq)
 {
-    if (isPrimary() == false)
-        return NO_ERROR;
     if (!mForceDisplayColorSetting && !mColorSettingChanged)
         return NO_ERROR;
 
