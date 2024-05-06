@@ -13,6 +13,7 @@
 # limitations under the License.
 
 LOCAL_SRC_FILES += \
+	../../gs101/libhwc2.1/libcolormanager/ColorManager.cpp \
 	../../gs101/libhwc2.1/libcolormanager/DisplayColorModule.cpp \
 	../../gs101/libhwc2.1/libdevice/ExynosDeviceModule.cpp \
 	../../gs201/libhwc2.1/libdevice/HistogramController.cpp \
